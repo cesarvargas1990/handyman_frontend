@@ -1,0 +1,72 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card main-card mb-3">
+      <div class="card-header">
+        Reporte del servicio
+      </div>
+      <div class="card-body">
+        <div class="card-body">
+          <form [formGroup]="reportForm">
+            <div class="position-relative form-group"><label for="employeeDocumentNumber">N&uacute;mero de
+                Identificaci&oacute;n del t&eacute;cnico</label><input 
+                name="employeeDocumentNumber" formControlName="employeeDocumentNumber" id="employeeDocumentNumber"
+                placeholder="Identificaci&oacute;n del t&eacute;cnico" type="text" maxlength="10" required
+                class="form-control">
+              <div *ngIf="getControl.employeeDocumentNumber.touched && getControl.employeeDocumentNumber.invalid"
+                class="text-danger">
+                <div *ngIf="getControl.employeeDocumentNumber.errors.required">Documento del empleado es obligatorio.
+                </div>
+              </div>
+            </div>
+            <div class="position-relative form-group"><label for="serviceId">C&oacute;digo</label>
+              <input name="serviceId" formControlName="serviceId"  id="serviceId"
+                placeholder="C&oacute;digo del servicio" type="text" maxlength="10" required class="form-control">
+              <div *ngIf="getControl.serviceId.touched && getControl.serviceId.invalid" class="text-danger">
+                <div *ngIf="getControl.serviceId.errors.required">C&oacute;digo del servicio es obligatorio.</div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-4">
+
+
+
+                <label>Fecha y hora de inicio</label>
+                <br>
+                <ngb-datepicker formControlName="dateStart"  name="dateStart"
+                  [showWeekNumbers]="true"></ngb-datepicker>
+
+                <br>
+                <ngb-timepicker formControlName="timeStart" [(ngModel)]="timeStart" name="timeStart"
+                  [meridian]="meridian"></ngb-timepicker>
+                <div *ngIf="getControl.timeStart.touched && getControl.timeStart.invalid" class="text-danger">
+                  <div *ngIf="getControl.timeStart.errors.required">Hora de inicio del servicio es obligatoria.</div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+
+
+
+                <label>Fecha y hora final</label>
+                <br>
+                <ngb-datepicker formControlName="dateEnd"  name="dateEnd" [showWeekNumbers]="true">
+                </ngb-datepicker>
+
+                <br>
+                <ngb-timepicker formControlName="timeEnd" [(ngModel)]="timeEnd" name="timeEnd" [meridian]="meridian">
+                </ngb-timepicker>
+                <div *ngIf="getControl.timeEnd.touched && getControl.timeEnd.invalid" class="text-danger">
+                  <div *ngIf="getControl.timeEnd.errors.required">Hora fin del servicio es obligatoria.</div>
+                </div>
+              </div>
+            </div>
+            <button class="mt-1 btn btn-primary" [disabled]="!reportForm.valid" (click)="saveReport()">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
