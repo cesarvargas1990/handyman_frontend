@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { NgbDatepickerI18n, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { RegisterService } from '../../../Services/register.service';
+import { RegisterService } from '../../../Services/reports/register/register.service';
 import {  FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
     if (serviceDateStart.getTime() > serviceDateEnd.getTime() ) {
       Swal.fire({
         type: 'error',
-        text: 'La fecha de inicio debe ser mayor a la fecha final',
+        text: 'La fecha de inicio no debe ser mayor a la fecha final',
         title: 'Error en validacion'
       })
       return false;

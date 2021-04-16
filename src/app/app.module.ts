@@ -52,6 +52,7 @@ import {AnalyticsComponent} from './DemoPages/Dashboards/analytics/analytics.com
 // Pages
 
 import { RegisterComponent } from './Components/reports/register/register.component';
+import { SearchComponent } from './Components/reports/search/search.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -91,6 +92,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // User Pages
 
     RegisterComponent,
+     SearchComponent,
   ],
   imports: [
     BrowserModule,

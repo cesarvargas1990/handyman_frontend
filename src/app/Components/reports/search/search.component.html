@@ -1,0 +1,150 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card main-card mb-3">
+      <div class="card-header">
+        Consulta del servicio
+      </div>
+      
+        <div class="card-body">
+          <form [formGroup]="searchForm">
+            <div class="position-relative form-group"><label for="employeeDocumentNumber">N&uacute;mero de
+                Identificaci&oacute;n del t&eacute;cnico</label><input 
+                name="employeeDocumentNumber" formControlName="employeeDocumentNumber" id="employeeDocumentNumber"
+                placeholder="Identificaci&oacute;n del t&eacute;cnico" type="text" maxlength="10" required
+                class="form-control">
+              <div *ngIf="getControl.employeeDocumentNumber.touched && getControl.employeeDocumentNumber.invalid"
+                class="text-danger">
+                <div *ngIf="getControl.employeeDocumentNumber.errors.required">Documento del empleado es obligatorio.
+                </div>
+              </div>
+            </div>
+            <div class="position-relative form-group"><label for="weekNumber">N&uacute;mero de semana</label>
+              <input name="weekNumber" formControlName="weekNumber"  id="weekNumber"
+                placeholder="N&uacute;mero de la semana" type="text" maxlength="10" required class="form-control">
+              <div *ngIf="getControl.weekNumber.touched && getControl.weekNumber.invalid" class="text-danger">
+                <div *ngIf="getControl.weekNumber.errors.required">n&uacute; de la semana es obligatorio.</div>
+              </div>
+            </div>
+            <button class="mt-1 btn btn-primary" [disabled]="!searchForm.valid" (click)="search()">Consultar</button>
+          </form>
+        </div>
+
+        <div>
+          <div class="col-sm-12 col-lg-12">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-success border-success">
+                  <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content pt-3 pl-3 pb-1">
+                      <div class="widget-chart-flex">
+                        <div class="widget-numbers">
+                          <div class="widget-chart-flex">
+                            <div class="fsize-4">
+                              <small class="opacity-5"></small>
+                              <span>{{normalHoursTotal}}</span></div>
+                          </div>
+                        </div> 
+                      </div>
+                      <h6 class="widget-subheading mb-0 opacity-5">Horas normales</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-primary border-primary">
+                  <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content pt-3 pl-3 pb-1">
+                      <div class="widget-chart-flex">
+                        <div class="widget-numbers">
+                          <div class="widget-chart-flex">
+                            <div class="fsize-4">
+                              <small class="opacity-5"></small>
+                              <span>{{nightHoursTotal}}</span></div>
+                          </div>
+                        </div>
+                      </div>
+                      <h6 class="widget-subheading mb-0 opacity-5">Horas nocturnas</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-warning border-warning">
+                  <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content pt-3 pl-3 pb-1">
+                      <div class="widget-chart-flex">
+                        <div class="widget-numbers">
+                          <div class="widget-chart-flex">
+                            <div class="fsize-4">
+                              <small class="opacity-5"></small>
+                              <span>{{sundayHoursTotal}}</span></div>
+                          </div>
+                        </div>
+                      </div>
+                      <h6 class="widget-subheading mb-0 opacity-5">Horas Dominicales</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-danger border-danger">
+                  <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content pt-3 pl-3 pb-1">
+                      <div class="widget-chart-flex">
+                        <div class="widget-numbers">
+                          <div class="widget-chart-flex">
+                            <div class="fsize-4">
+                              <small class="opacity-5"></small>
+                              <span>{{normalHoursTotalExtra}}</span></div>
+                          </div>
+                        </div>
+                      </div>
+                      <h6 class="widget-subheading mb-0 opacity-5">Horas normales extra</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-info border-info">
+                  <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content pt-3 pl-3 pb-1">
+                      <div class="widget-chart-flex">
+                        <div class="widget-numbers">
+                          <div class="widget-chart-flex">
+                            <div class="fsize-4">
+                              <small class="opacity-5"></small>
+                              <span>{{nightHoursTotalExtra}}</span></div>
+                          </div>
+                        </div>
+                      </div>
+                      <h6 class="widget-subheading mb-0 opacity-5">Horas nocturnas extra</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-warning border-warning">
+                  <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content pt-3 pl-3 pb-1">
+                      <div class="widget-chart-flex">
+                        <div class="widget-numbers">
+                          <div class="widget-chart-flex">
+                            <div class="fsize-4">
+                              <small class="opacity-5"></small>
+                              <span>{{sundayHoursTotalExtra}}</span></div>
+                          </div>
+                        </div>
+                      </div>
+                      <h6 class="widget-subheading mb-0 opacity-5">Horas dominicales extra</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>

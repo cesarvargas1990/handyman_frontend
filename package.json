@@ -34,6 +34,7 @@
     "chartjs-adapter-luxon": "^0.2.2",
     "chartjs-plugin-annotation": "^0.5.7",
     "chartjs-plugin-datalabels": "^0.7.0",
+    "current-week-number": "^1.0.7",
     "font-awesome": "^4.7.0",
     "lodash-es": "^4.17.21",
     "ng2-charts": "^2.4.2",
@@ -43,6 +44,7 @@
     "sass": "^1.32.8",
     "sweetalert2": "^7.33.1",
     "tslib": "^2.0.0",
+    "week-utils": "^1.0.4",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

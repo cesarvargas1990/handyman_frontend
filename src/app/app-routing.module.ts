@@ -13,7 +13,7 @@ import {AnalyticsComponent} from './DemoPages/Dashboards/analytics/analytics.com
 // Pages
 
 import { RegisterComponent } from './Components/reports/register/register.component';
-
+import { SearchComponent} from './Components/reports/search/search.component';
 
 const routes: Routes = [
   {
@@ -32,6 +32,7 @@ const routes: Routes = [
       // Tables
 
       {path: 'reports/register', component: RegisterComponent, data: {extraParameter: ''}},
+      {path: 'reports/search', component: SearchComponent, data: {extraParameter: ''}},
 
     ]
 
