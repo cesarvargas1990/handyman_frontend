@@ -39,7 +39,33 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  validateHoursInRange(startDate, endDate, startDatef, endDatef) {
+    let isHourInRange = false;
+   
 
+    if (startDate.getTime() >= startDatef.getTime() && endDate.getTime() <= endDatef.getTime()
+
+
+
+      || (startDate.getTime() <= startDatef.getTime() && endDatef.getTime() >= startDatef.getTime()
+
+
+        || (endDate.getTime() <= endDatef.getTime() && endDate.getTime() >= endDatef.getTime()))) {
+
+      isHourInRange = true;
+    }
+
+
+
+
+
+    return isHourInRange;
+
+  }
+
+  getTotalHoursDiff(startDate, endDate) {
+    return ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
+  }
 
   get getControl() {
 
@@ -52,8 +78,6 @@ export class SearchComponent implements OnInit {
     }
     this.searchService.findByEmployeeDocumentNumber(data).subscribe(
       response => {
-
-
 
         this.normalHoursTotal = 0;
         this.nightHoursTotal = 0;
@@ -78,63 +102,60 @@ export class SearchComponent implements OnInit {
           const startDate = new Date(parseInt(serviceStartDate));
           const endDate = new Date(parseInt(serviceEndDate));
 
-          console.log (  startDate.getDate() + '/' + (startDate.getMonth() - 1)  + '/' + startDate.getUTCFullYear() + ' ' + startDate.getHours() + ':' + startDate.getMinutes()     + ' || ' +  endDate.getDate() + '/' + (endDate.getMonth() - 1)  + '/' + endDate.getUTCFullYear() + ' ' + endDate.getHours() + ':' + endDate.getMinutes())   ;
+          let diff = ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
 
           const weekNumber = weekUtils.curWeek(startDate);
-
-
-
           if (weekNumber == this.searchForm.value['weekNumber']) {
 
+            for (let x = 0; x < diff; x++) {
 
-            if (startDate.getHours() >= 7 && endDate.getHours() <= 20 && endDate.getDay() >= 0 && endDate.getDay() <= 6) {
-
-
-              normalHours = normalHours + ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-              this.normalHoursTotal = normalHours;
-            }
-
-            if (startDate.getHours() >= 20 && endDate.getHours() <= 7 && endDate.getDay() >= 0 && endDate.getDay() <= 6) {
-
-              console.log ('aqui');
-              nightHours = nightHours + ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-              this.nightHoursTotal = nightHours;
-            }
-
-            if (endDate.getDay() == 0) {
-              sundayHours = sundayHours + ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-              this.sundayHoursTotal = sundayHours;
-
-            }
-
-            if (startDate.getHours() >= 7 && endDate.getHours() <= 20 && endDate.getDay() >= 0 && endDate.getDay() <= 6 && this.normalHoursTotal > 48) {
+              let dti = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours() + x, 0)
+              let dtf = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), dti.getHours(), 59)
 
 
-              normalHoursExtra = normalHoursExtra + ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-              this.normalHoursTotalExtra = normalHoursExtra;
-            }
+              if (dti.getHours() >= 7 && dti.getMinutes() >= 0 && dtf.getHours() <= 19 && dtf.getMinutes() <= 59 && dti.getDay() >= 1 && dti.getDay() <= 6) {
 
-            if (startDate.getHours() >= 20 && endDate.getHours() <= 7 && endDate.getDay() >= 0 && endDate.getDay() <= 6 && this.normalHoursTotal > 48) {
+                this.normalHoursTotal = this.normalHoursTotal + 1;
+              }
 
+              if ((dti.getHours() >= 20 && dti.getMinutes() >= 0) && (dtf.getDay() >= 1 && dtf.getDay() <= 6)) {
 
-              nightHoursExtra = nightHoursExtra + ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-              this.nightHoursTotalExtra = nightHoursExtra;
-            }
+                this.nightHoursTotal = this.nightHoursTotal + 1;
+              }
 
-            if (endDate.getDay() == 0) {
-              sundayHoursExtra = sundayHoursExtra + ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-              this.sundayHoursTotalExtra = sundayHoursExtra;
+              if (dti.getDay() > dtf.getDay() && dtf.getHours() <= 6 && dtf.getMinutes() <= 59) {
+
+                this.nightHoursTotal = this.nightHoursTotal + 1;
+              }
+
+              if (dti.getDay() == 0) {
+
+                this.sundayHoursTotal = this.sundayHoursTotal + 1;
+              }
 
             }
           }
 
+          if (this.normalHoursTotal >= 48) {
+            this.normalHoursTotalExtra = this.normalHoursTotal - 48;
+            this.normalHoursTotal = this.normalHoursTotal - this.normalHoursTotalExtra;
+          }
 
-        }
-        );
+          if (this.nightHoursTotal >= 48) {
+            this.nightHoursTotalExtra = this.nightHoursTotal - 48;
+            this.nightHoursTotal = this.nightHoursTotal - this.nightHoursTotalExtra;
+          }
 
+          if (this.sundayHoursTotal >= 48) {
+            this.sundayHoursTotalExtra = this.sundayHoursTotal - 48;
+            this.sundayHoursTotal = this.sundayHoursTotal - this.sundayHoursTotalExtra;
+          }
+
+        })
       }, error => {
         console.log(error)
       }
+
     )
 
   }
