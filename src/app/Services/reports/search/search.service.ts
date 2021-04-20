@@ -16,4 +16,8 @@ export class SearchService {
   findByEmployeeDocumentNumber(data: any): Observable<any> {
     return this.http.get(environment.baseUrl+'/search/findByEmployeeDocumentNumber?employeeDocumentNumber='+data.employeeDocumentNumber);
   }
+
+  searchByWeekAndIdentify(data: any): Observable<any> {
+    return this.http.post(environment.serverUrl+'/report/search/searchByWeekendAndEmployedNumber',data);
+  }
 }

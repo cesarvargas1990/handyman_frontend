@@ -21,6 +21,14 @@ export class SearchComponent implements OnInit {
   nightHoursTotalExtra = 0;
   sundayHoursTotalExtra = 0;
 
+
+  normalHoursTotalJ = 0;
+  nightHoursTotalJ = 0;
+  sundayHoursTotalJ = 0;
+  normalHoursTotalExtraJ = 0;
+  nightHoursTotalExtraJ = 0;
+  sundayHoursTotalExtraJ = 0;
+
   searchForm = new FormGroup({
   });
 
@@ -74,7 +82,8 @@ export class SearchComponent implements OnInit {
 
   search() {
     let data = {
-      'employeeDocumentNumber': this.searchForm.value['employeeDocumentNumber']
+      'employeeDocumentNumber': this.searchForm.value['employeeDocumentNumber'],
+      'weekendNumber': this.searchForm.value['weekNumber']
     }
     this.searchService.findByEmployeeDocumentNumber(data).subscribe(
       response => {
@@ -157,6 +166,22 @@ export class SearchComponent implements OnInit {
       }
 
     )
+
+    this.searchService.searchByWeekAndIdentify(data).subscribe(
+
+      response => {
+
+
+        this.normalHoursTotalJ = response.normalHoursTotal;
+        this.nightHoursTotalJ = response.nightHoursTotal;
+        this.sundayHoursTotalJ = response.sundayHoursTotal;
+        this.normalHoursTotalExtraJ = response.normalHoursTotalExtra;
+        this.nightHoursTotalExtraJ = response.nightHoursTotalExtra;
+        this.sundayHoursTotalExtraJ = response.sundayHoursTotalExtra;
+      }
+    )
+
+
 
   }
 
