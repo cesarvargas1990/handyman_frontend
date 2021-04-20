@@ -85,99 +85,18 @@ export class SearchComponent implements OnInit {
       'employeeDocumentNumber': this.searchForm.value['employeeDocumentNumber'],
       'weekendNumber': this.searchForm.value['weekNumber']
     }
-    this.searchService.findByEmployeeDocumentNumber(data).subscribe(
-      response => {
-
-        this.normalHoursTotal = 0;
-        this.nightHoursTotal = 0;
-        this.sundayHoursTotal = 0;
-        this.normalHoursTotalExtra = 0;
-        this.nightHoursTotalExtra = 0;
-        this.sundayHoursTotalExtra = 0;
-
-        let normalHours = 0;
-        let nightHours = 0;
-        let sundayHours = 0;
-        let normalHoursExtra = 0;
-        let nightHoursExtra = 0;
-        let sundayHoursExtra = 0;
-        let content = response['content'];
-        content.forEach(element => {
-          const weekUtils = new WeekUtils();
-
-          const serviceStartDate = element.serviceDateStart.value;
-          const serviceEndDate = element.serviceDateEnd.value;
-
-          const startDate = new Date(parseInt(serviceStartDate));
-          const endDate = new Date(parseInt(serviceEndDate));
-
-          let diff = ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-
-          const weekNumber = weekUtils.curWeek(startDate);
-          if (weekNumber == this.searchForm.value['weekNumber']) {
-
-            for (let x = 0; x < diff; x++) {
-
-              let dti = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours() + x, 0)
-              let dtf = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), dti.getHours(), 59)
-
-
-              if (dti.getHours() >= 7 && dti.getMinutes() >= 0 && dtf.getHours() <= 19 && dtf.getMinutes() <= 59 && dti.getDay() >= 1 && dti.getDay() <= 6) {
-
-                this.normalHoursTotal = this.normalHoursTotal + 1;
-              }
-
-              if ((dti.getHours() >= 20 && dti.getMinutes() >= 0) && (dtf.getDay() >= 1 && dtf.getDay() <= 6)) {
-
-                this.nightHoursTotal = this.nightHoursTotal + 1;
-              }
-
-              if (dti.getDay() > dtf.getDay() && dtf.getHours() <= 6 && dtf.getMinutes() <= 59) {
-
-                this.nightHoursTotal = this.nightHoursTotal + 1;
-              }
-
-              if (dti.getDay() == 0) {
-
-                this.sundayHoursTotal = this.sundayHoursTotal + 1;
-              }
-
-            }
-          }
-
-          if (this.normalHoursTotal >= 48) {
-            this.normalHoursTotalExtra = this.normalHoursTotal - 48;
-            this.normalHoursTotal = this.normalHoursTotal - this.normalHoursTotalExtra;
-          }
-
-          if (this.nightHoursTotal >= 48) {
-            this.nightHoursTotalExtra = this.nightHoursTotal - 48;
-            this.nightHoursTotal = this.nightHoursTotal - this.nightHoursTotalExtra;
-          }
-
-          if (this.sundayHoursTotal >= 48) {
-            this.sundayHoursTotalExtra = this.sundayHoursTotal - 48;
-            this.sundayHoursTotal = this.sundayHoursTotal - this.sundayHoursTotalExtra;
-          }
-
-        })
-      }, error => {
-        console.log(error)
-      }
-
-    )
-
+   
     this.searchService.searchByWeekAndIdentify(data).subscribe(
 
       response => {
 
 
-        this.normalHoursTotalJ = response.normalHoursTotal;
-        this.nightHoursTotalJ = response.nightHoursTotal;
-        this.sundayHoursTotalJ = response.sundayHoursTotal;
-        this.normalHoursTotalExtraJ = response.normalHoursTotalExtra;
-        this.nightHoursTotalExtraJ = response.nightHoursTotalExtra;
-        this.sundayHoursTotalExtraJ = response.sundayHoursTotalExtra;
+        this.normalHoursTotal = response.normalHoursTotal;
+        this.nightHoursTotal = response.nightHoursTotal;
+        this.sundayHoursTotal = response.sundayHoursTotal;
+        this.normalHoursTotalExtra = response.normalHoursTotalExtra;
+        this.nightHoursTotalExtra = response.nightHoursTotalExtra;
+        this.sundayHoursTotalExtra = response.sundayHoursTotalExtra;
       }
     )
 

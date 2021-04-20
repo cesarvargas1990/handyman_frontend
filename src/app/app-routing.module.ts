@@ -8,7 +8,6 @@ import {PagesLayoutComponent} from './Layout/pages-layout/pages-layout.component
 
 // Dashboards
 
-import {AnalyticsComponent} from './DemoPages/Dashboards/analytics/analytics.component';
 
 // Pages
 
@@ -23,7 +22,7 @@ const routes: Routes = [
 
       // Dashboads
 
-      {path: '', component: AnalyticsComponent, data: {extraParameter: 'dashboardsMenu'}},
+      {path: '', component: RegisterComponent, data: {extraParameter: 'dashboardsMenu'}},
 
       // Elements
 

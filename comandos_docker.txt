@@ -1,0 +1,4 @@
+-- constuir imagen
+docker build -t handyman-frontend .
+-- ejecutar imagen
+docker run --publish 80:80 handyman-frontend
