@@ -3,7 +3,7 @@ import { NgbDatepickerI18n, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterService } from '../../../Services/reports/register/register.service';
 import {  FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+import WeekUtils from "week-utils";
 
 const I18N_VALUES = {
   'es': {
@@ -85,11 +85,15 @@ export class RegisterComponent implements OnInit {
       })
       return false;
     }
+    
+    const weekUtils = new WeekUtils();
+    
     const data = {
       'employeeDocumentNumber': this.reportForm.value['employeeDocumentNumber'],
       'serviceId': this.reportForm.value['serviceId'],
       'serviceDateStart': serviceDateStart.getTime(),
       'serviceDateEnd': serviceDateEnd.getTime(),
+      'weekendNumber': weekUtils.curWeek(new Date(serviceDateStart.getTime())) 
     }
     console.log(data)
     this.registerService.create(data).subscribe(
