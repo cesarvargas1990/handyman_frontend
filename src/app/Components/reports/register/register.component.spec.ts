@@ -12,10 +12,10 @@ describe('RegisterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisterComponent ],
-      imports: [ReactiveFormsModule,HttpClientTestingModule,NgbModule]
+      declarations: [RegisterComponent],
+      imports: [ReactiveFormsModule, HttpClientTestingModule, NgbModule]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -32,4 +32,47 @@ describe('RegisterComponent', () => {
   it('titulo del componente', () => {
     expect(div.textContent).toContain(component.title);
   });
+
+  it('formulario sin diligenciar', () => {
+    expect(component.reportForm.valid).toBeFalsy();
+  });
+
+  it('numero de identificacion tecnico sin ningun valor', () => {
+    let employeeDocumentNumber = component.reportForm.controls['employeeDocumentNumber'];
+    expect(employeeDocumentNumber.valid).toBeFalsy();
+  });
+
+  it('numero de identificacion con valor valido' , () => {
+    let employeeDocumentNumber = component.reportForm.controls['employeeDocumentNumber'];
+    let errors = {};
+    errors = employeeDocumentNumber.errors || {};
+    employeeDocumentNumber.setValue("1112880062");
+    expect(errors['minlength']).toBeFalsy(); 
+  })
+
+  it('numero de identificacion con valor invalido' , () => {
+    let employeeDocumentNumber = component.reportForm.controls['employeeDocumentNumber'];
+    let errors = {};
+    employeeDocumentNumber.setValue("123");
+    errors = employeeDocumentNumber.errors || {};
+    
+    expect(errors['minlength']).toBeTruthy(); 
+  })
+
+  it('codigo del servicio sin ningun valor', () => {
+    let employeeDocumentNumber = component.reportForm.controls['serviceId'];
+    expect(employeeDocumentNumber.valid).toBeFalsy(); 
+  });
+
+  it('fecha fecha de inicio mayor que fecha final' , () => {
+      let startDate = new Date(2021,4,30);
+      let endDate = new Date(2021,3,1);
+      expect(component.validateDates(startDate,endDate)).toBeFalsy();
+  } )
+
+  it('fecha fecha de inicio menor que fecha final' , () => {
+    let startDate = new Date(2021,3,30);
+    let endDate = new Date(2021,4,1);
+    expect(component.validateDates(startDate,endDate)).toBeTruthy();
+} )
 });

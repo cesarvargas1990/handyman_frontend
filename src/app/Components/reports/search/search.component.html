@@ -17,14 +17,21 @@
                 class="text-danger">
                 <div *ngIf="getControl.employeeDocumentNumber.errors.required">Documento del empleado es obligatorio.
                 </div>
+                <div *ngIf="getControl.employeeDocumentNumber.errors.minlength">Documento del empleado invalido.
+                </div>
               </div>
             </div>
             <div class="position-relative form-group"><label for="weekNumber">N&uacute;mero de semana</label>
               <input name="weekNumber" formControlName="weekNumber"  id="weekNumber"
                 placeholder="N&uacute;mero de la semana" type="text" maxlength="10" required class="form-control">
               <div *ngIf="getControl.weekNumber.touched && getControl.weekNumber.invalid" class="text-danger">
-                <div *ngIf="getControl.weekNumber.errors.required">n&uacute; de la semana es obligatorio.</div>
+                <div *ngIf="getControl.weekNumber.errors.required">N&uacute;mero de la semana es obligatorio.</div>
+                <div *ngIf="getControl.weekNumber.errors.minlength">La cantidad de caracteres no debe ser menor a 1.</div>
+                <div *ngIf="getControl.weekNumber.errors.maxlength">La cantidad de caracteres no debe ser mayor a 3.</div>
+                <div *ngIf="getControl.weekNumber.errors.pattern">N&uacute;mero de la semana debe ser n&uacute;merico.</div>
               </div>
+             
+              
             </div>
             <button class="mt-1 btn btn-primary" [disabled]="!searchForm.valid" (click)="search()">Consultar</button>
           </form>

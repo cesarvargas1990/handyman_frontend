@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit {
   createForm() {
     this.searchForm = this.formBuilder.group({
       employeeDocumentNumber: ['', [Validators.required, Validators.minLength(10)]],
-      weekNumber: ['', [Validators.required, Validators.minLength(1)]],
+      weekNumber: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2), Validators.pattern(/^-?(0|[1-9]\d*)?$/) ]],
 
     });
   }

@@ -65,6 +65,13 @@ export class RegisterComponent implements OnInit {
     this.createForm();
   }
 
+  validateDates (serviceDateStart,serviceDateEnd ) {
+    if (serviceDateStart.getTime() > serviceDateEnd.getTime() ) {
+      return false;
+    }
+    return true;
+  }
+  
   saveReport() {
     
     let dateStart = this.reportForm.value['dateStart'];
@@ -78,7 +85,7 @@ export class RegisterComponent implements OnInit {
     let serviceDateEnd = new Date( dateEnd.month + "/" + dateEnd.day +"/" + dateEnd.year + " "+timeEnd.hour+":"+timeEnd.minute+":"+"0" );
  
 
-    if (serviceDateStart.getTime() > serviceDateEnd.getTime() ) {
+    if (this.validateDates(serviceDateStart,serviceDateEnd) ) {
       Swal.fire({
         type: 'error',
         text: 'La fecha de inicio no debe ser mayor a la fecha final',

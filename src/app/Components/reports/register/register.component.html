@@ -17,6 +17,8 @@
                 class="text-danger">
                 <div *ngIf="getControl.employeeDocumentNumber.errors.required">Documento del empleado es obligatorio.
                 </div>
+                <div *ngIf="getControl.employeeDocumentNumber.errors.minlength">Documento del empleado invalido.
+                </div>
               </div>
             </div>
             <div class="position-relative form-group"><label for="serviceId">C&oacute;digo</label>
