@@ -8,6 +8,7 @@ import { RegisterComponent } from './register.component';
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
+  let div: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,9 +22,14 @@ describe('RegisterComponent', () => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    div = fixture.nativeElement.querySelector('div');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('titulo del componente', () => {
+    expect(div.textContent).toContain(component.title);
   });
 });

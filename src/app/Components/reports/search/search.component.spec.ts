@@ -8,6 +8,7 @@ import { SearchComponent } from './search.component';
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
+  let div: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({ 
@@ -21,9 +22,14 @@ describe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    div = fixture.nativeElement.querySelector('div');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('titulo del componente', () => {
+    expect(div.textContent).toContain(component.title);
   });
 });

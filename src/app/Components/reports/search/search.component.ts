@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   heading = 'Consultar reporte de servicio';
   subheading = 'Ingrese los datos correspondientes para consultar el calculo de horas.';
   icon = 'pe-7s-bandaid icon-gradient bg-amy-crisp';
+  title = 'Consulta del servicio';
 
   normalHoursTotal = 0;
   nightHoursTotal = 0;
@@ -47,33 +48,6 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  validateHoursInRange(startDate, endDate, startDatef, endDatef) {
-    let isHourInRange = false;
-   
-
-    if (startDate.getTime() >= startDatef.getTime() && endDate.getTime() <= endDatef.getTime()
-
-
-
-      || (startDate.getTime() <= startDatef.getTime() && endDatef.getTime() >= startDatef.getTime()
-
-
-        || (endDate.getTime() <= endDatef.getTime() && endDate.getTime() >= endDatef.getTime()))) {
-
-      isHourInRange = true;
-    }
-
-
-
-
-
-    return isHourInRange;
-
-  }
-
-  getTotalHoursDiff(startDate, endDate) {
-    return ((endDate.valueOf() - startDate.valueOf()) / 1000 / 60 / 60);
-  }
 
   get getControl() {
 
@@ -85,7 +59,7 @@ export class SearchComponent implements OnInit {
       'employeeDocumentNumber': this.searchForm.value['employeeDocumentNumber'],
       'weekendNumber': this.searchForm.value['weekNumber']
     }
-   
+
     this.searchService.searchByWeekAndIdentify(data).subscribe(
 
       response => {

@@ -47,6 +47,7 @@ export class RegisterComponent implements OnInit {
   heading = 'Registrar reporte de servicio';
   subheading = 'Ingrese los datos correspondientes para registrar un reporte de servicio.';
   icon = 'pe-7s-bandaid icon-gradient bg-amy-crisp';
+  title = 'Reporte del servicio';
   model: NgbDateStruct;
 
 
